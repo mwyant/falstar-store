@@ -112,7 +112,7 @@
         </h1>
         <div class="eyebrow flex items-center gap-4 text-cerulean/60" style="margin-bottom: clamp(1rem, 2vw, 1.6rem);">
           <div class="h-[1px] w-12 bg-cerulean/30"></div>
-          <span class="inline-block">Neural Interface v5.1 // Archive Index</span>
+          <span class="inline-block">Neural Interface v5.1.1 // Archive Index</span>
         </div>
         <p class="archive-hero__lede type-body-lg">
           A classified storefront archive for premium speculative fiction, surfaced as tactical packets inside a live neural bridge.
@@ -225,7 +225,7 @@
   {/each}
 
   <footer class="text-center opacity-20 text-[10px] tracking-[0.5em] uppercase" style="padding-bottom: clamp(2rem, 5vw, 4rem);">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.1 archive</p>
+    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.1.1 archive</p>
   </footer>
 </main>
 
