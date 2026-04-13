@@ -1,99 +1,58 @@
 <script>
   import Nebula from '$lib/components/Nebula.svelte';
-  import books from '$lib/data/books.json';
-
-  const convergenceBooks = books.filter(b => b.series === 'The Anisian Convergence');
 </script>
 
 <Nebula />
 
-<main class="container mx-auto px-4 py-16 relative z-10">
-  <header class="text-center mb-16">
-    <img src="/images/logo.webp" alt="Falstar Publishing" class="mx-auto w-48 mb-8" />
-    <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tighter">Falstar Store</h1>
-    <p class="text-xl text-cerulean opacity-80 uppercase tracking-widest font-light">Digital Uplink Terminals</p>
-  </header>
-
-  <section id="convergence" class="mb-20">
-    <div class="flex items-center gap-4 mb-12">
-      <h2 class="text-2xl font-bold">The Anisian Convergence</h2>
-      <div class="h-px flex-1 bg-gradient-to-r from-cerulean to-transparent opacity-30"></div>
+<main class="container mx-auto px-4 py-16 relative z-10 min-h-screen flex flex-col items-center justify-center text-center">
+  <div class="glass-panel p-12 max-w-2xl w-full border-cerulean/40 shadow-[0_0_50px_rgba(0,229,255,0.1)]">
+    <img src="/images/logo.webp" alt="Falstar Publishing" class="w-48 mx-auto mb-12 opacity-80" />
+    
+    <div class="mb-8">
+      <div class="text-xs font-bold text-cerulean tracking-[0.4em] uppercase mb-4 animate-pulse">
+        System Status: Initializing Uplink
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4">Databank Locked</h1>
+      <div class="h-px w-32 bg-cerulean mx-auto mb-8 opacity-50"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {#each convergenceBooks as book}
-        <a href="/book/{book.id}" class="glass-panel group overflow-hidden flex flex-col h-full transition-all hover:border-cerulean/50 hover:shadow-[0_0_30px_rgba(0,229,255,0.1)]">
-          <div class="aspect-[2/3] overflow-hidden relative">
-            <img 
-              src={book.cover} 
-              alt={book.title} 
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-bg to-transparent opacity-60"></div>
-            {#if book.prequel}
-              <div class="absolute top-4 right-4 bg-crimson text-white px-3 py-1 text-xs font-bold tracking-tighter">PREQUEL</div>
-            {:else if book.standalone}
-              <div class="absolute top-4 right-4 bg-cerulean text-black px-3 py-1 text-xs font-bold tracking-tighter uppercase">Standalone</div>
-            {:else}
-              <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-md px-3 py-1 text-xs font-bold">BOOK {book.bookNum}</div>
-            {/if}
-          </div>
+    <p class="text-lg text-text/80 mb-12 italic leading-relaxed">
+      "The Falstar Store terminals are currently undergoing maintenance and security recalibration. Secure download protocols will be restored shortly."
+    </p>
 
-          <div class="p-6 flex flex-col flex-1">
-            <h3 class="text-xl font-bold mb-2 group-hover:text-cerulean transition-colors">{book.title}</h3>
-            <p class="text-sm text-text opacity-70 mb-6 flex-1 line-clamp-3 leading-relaxed">
-              {book.description}
-            </p>
-            
-            <div class="mt-auto flex items-center justify-between gap-4 pt-4 border-t border-white/5">
-              <span class="text-2xl font-bold tracking-tighter">${book.price}</span>
-              <span class="bg-cerulean text-black font-bold py-2 px-6 rounded-sm uppercase text-sm tracking-widest group-hover:bg-white transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)]">
-                Acquire
-              </span>
-            </div>
-          </div>
-        </a>
-      {/each}
+    <div class="flex flex-col gap-4 text-xs font-bold tracking-widest text-white/30 uppercase">
+      <div class="flex items-center justify-between border-b border-white/5 pb-2">
+        <span>Authorization Level</span>
+        <span class="text-cerulean">PENDING</span>
+      </div>
+      <div class="flex items-center justify-between border-b border-white/5 pb-2">
+        <span>Uplink Estimated</span>
+        <span class="text-crimson">2026.Q2.TBD</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span>Terminal ID</span>
+        <span>STORE-FALSTAR-001</span>
+      </div>
     </div>
-  </section>
 
-  <footer class="text-center opacity-30 text-sm mt-32">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC. Neural interface connected.</p>
+    <div class="mt-12">
+      <a href="https://mikewyantjr.com" class="inline-block border border-cerulean/30 text-cerulean px-8 py-3 rounded-sm hover:bg-cerulean/10 hover:border-cerulean transition-all uppercase tracking-[0.2em] font-bold text-sm">
+        Return to Station
+      </a>
+    </div>
+  </div>
+
+  <footer class="mt-16 text-xs text-white/20 uppercase tracking-widest">
+    &copy; {new Date().getFullYear()} Falstar Publishing LLC // Secure Neural Uplink Environment
   </footer>
 </main>
 
 <style>
-  :global(.mx-auto) { margin-left: auto; margin-right: auto; }
-  :global(.container) { max-width: 1200px; }
-  :global(.grid) { display: grid; }
-  :global(.grid-cols-1) { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-  @media (min-width: 768px) { :global(.md\:grid-cols-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { :global(.lg\:grid-cols-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  :global(.gap-8) { gap: 2rem; }
-  :global(.flex) { display: flex; }
-  :global(.flex-col) { flex-direction: column; }
-  :global(.items-center) { align-items: center; }
-  :global(.justify-between) { justify-content: space-between; }
-  :global(.text-center) { text-align: center; }
-  :global(.font-bold) { font-weight: 700; }
-  :global(.mb-4) { margin-bottom: 1rem; }
-  :global(.mb-8) { margin-bottom: 2rem; }
-  :global(.mb-12) { margin-bottom: 3rem; }
-  :global(.mb-16) { margin-bottom: 4rem; }
-  :global(.mb-20) { margin-bottom: 5rem; }
-  :global(.p-6) { padding: 1.5rem; }
-  :global(.py-16) { padding-top: 4rem; padding-bottom: 4rem; }
-  :global(.px-4) { padding-left: 1rem; padding-right: 1rem; }
-  :global(.relative) { position: relative; }
-  :global(.z-10) { z-index: 10; }
-  :global(.text-cerulean) { color: var(--clr-cerulean); }
-  :global(.text-crimson) { color: var(--clr-crimson); }
-  :global(.bg-cerulean) { background-color: var(--clr-cerulean); }
-  :global(.bg-crimson) { background-color: var(--clr-crimson); }
-  :global(.line-clamp-3) {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .glass-panel {
+    background: rgba(13, 22, 43, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 4px;
   }
 </style>
