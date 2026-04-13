@@ -21,12 +21,12 @@
       <div class="absolute -inset-4 bg-cerulean/20 blur-2xl rounded-full animate-pulse"></div>
       <img src="/images/logo.webp" alt="Falstar Publishing" class="relative w-32 md:w-40 opacity-90 brightness-125" />
     </div>
-    <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-[-0.08em] text-white uppercase italic skew-x-[-10deg] glow-text">
-      Databank
+    <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-[-0.08em] text-white uppercase italic glow-text">
+      <span class="inline-block transform skew-x-[-10deg]">Databank</span>
     </h1>
     <div class="flex items-center justify-center gap-4 text-[10px] md:text-xs font-black uppercase tracking-[0.6em] text-cerulean/60">
       <div class="h-[1px] w-12 bg-cerulean/30"></div>
-      <span>Neural Interface v4.0.1</span>
+      <span class="inline-block transform skew-x-[-10deg]">Neural Interface v4.0.1</span>
       <div class="h-[1px] w-12 bg-cerulean/30"></div>
     </div>
   </header>
@@ -34,8 +34,8 @@
   {#each series as s}
     <section id={s.name.toLowerCase().replace(/ /g, '-')} class="mb-48">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 px-4">
-        <div>
-          <h2 class="text-4xl md:text-5xl font-black text-white leading-none uppercase mb-2 italic skew-x-[-5deg]">{s.name}</h2>
+        <div class="transform skew-x-[-5deg]">
+          <h2 class="text-4xl md:text-5xl font-black text-white leading-none uppercase mb-2 italic">{s.name}</h2>
           <p class="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-cerulean/40">Sector // 0x{Math.random().toString(16).slice(2, 6).toUpperCase()}</p>
         </div>
         <div class="h-[2px] flex-1 bg-white/5 relative overflow-hidden">
@@ -43,16 +43,10 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
         {#each s.books as book}
-          <a href="/book/{book.id}" class="hud-panel group block relative h-full transition-all duration-500 hover:scale-[1.02] hover:z-20">
-            <div class="hud-corner-accent hud-corner-tl"></div>
-            <div class="hud-corner-accent hud-corner-tr"></div>
-            <div class="hud-corner-accent hud-corner-bl"></div>
-            <div class="hud-corner-accent hud-corner-br"></div>
-            <div class="hud-scanlines"></div>
-            
-            <div class="relative aspect-[3/4.5] overflow-hidden bg-black/60 m-2">
+          <a href="/book/{book.id}" class="hud-panel group block relative h-full transition-all duration-500 hover:scale-[1.02] hover:z-20 p-2">
+            <div class="relative aspect-[3/4.5] overflow-hidden bg-black/60 mb-4">
               <img 
                 src={book.cover} 
                 alt={book.title} 
@@ -68,12 +62,12 @@
               </div>
             </div>
 
-            <div class="p-6 pt-2">
+            <div class="px-4 pb-6 flex flex-col flex-1">
               <h3 class="text-xl font-black text-white/90 group-hover:text-cerulean transition-colors mb-4 leading-tight uppercase tracking-tight">
                 {book.title}
               </h3>
               
-              <div class="flex items-center justify-between border-t border-white/10 pt-4">
+              <div class="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
                 <span class="text-2xl font-black tracking-tighter text-white/80 group-hover:text-white transition-colors">${book.price}</span>
                 <span class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean opacity-60 group-hover:opacity-100 transition-opacity">Access Terminal →</span>
               </div>

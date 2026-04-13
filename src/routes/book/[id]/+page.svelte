@@ -24,17 +24,11 @@
       <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Accessing Dossier // {book.id.toUpperCase()}</span>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-24 items-start text-left px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start text-left px-4">
       <!-- Book Cover (Column 1-5) -->
-      <div class="lg:col-span-5 w-full max-w-md mx-auto lg:max-w-none">
-        <div class="hud-panel p-2 border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] relative group">
-          <div class="hud-corner-accent hud-corner-tl"></div>
-          <div class="hud-corner-accent hud-corner-tr"></div>
-          <div class="hud-corner-accent hud-corner-bl"></div>
-          <div class="hud-corner-accent hud-corner-br"></div>
-          <div class="hud-scanlines"></div>
-          
-          <div class="aspect-[2/3] overflow-hidden relative bg-black/40 m-2">
+      <div class="lg:col-span-5 w-full max-w-sm mx-auto lg:max-w-none">
+        <div class="hud-panel p-2 border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] relative group overflow-hidden">
+          <div class="aspect-[2/3] overflow-hidden relative bg-black/40">
             <img 
               src={book.cover} 
               alt={book.title} 
@@ -43,11 +37,11 @@
             />
             
             {#if book.prequel}
-              <div class="absolute top-4 right-4 bg-crimson text-white px-3 py-1 text-[10px] font-black tracking-widest uppercase skew-x-[-10deg]">PREQUEL</div>
+              <div class="absolute top-4 right-4 bg-crimson text-white px-3 py-1 text-[10px] font-black tracking-widest uppercase transform -skew-x-12">PREQUEL</div>
             {:else if book.standalone}
-              <div class="absolute top-4 right-4 bg-cerulean text-black px-3 py-1 text-[10px] font-black tracking-widest uppercase skew-x-[-10deg]">Standalone</div>
+              <div class="absolute top-4 right-4 bg-cerulean text-black px-3 py-1 text-[10px] font-black tracking-widest uppercase transform -skew-x-12">Standalone</div>
             {:else}
-              <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-xl border border-white/20 px-3 py-1 text-[10px] font-black tracking-widest uppercase skew-x-[-10deg]">Uplink {book.bookNum}</div>
+              <div class="absolute top-4 right-4 bg-white/10 backdrop-blur-xl border border-white/20 px-3 py-1 text-[10px] font-black tracking-widest uppercase transform -skew-x-12">Uplink {book.bookNum}</div>
             {/if}
           </div>
           
@@ -56,30 +50,27 @@
       </div>
 
       <!-- Book Info (Column 6-12) -->
-      <div class="lg:col-span-7 flex flex-col h-full pt-8">
+      <div class="lg:col-span-7 flex flex-col h-full pt-4">
         <header class="mb-12 relative">
           <div class="flex items-center gap-4 mb-6">
-            <span class="text-cerulean font-black tracking-[0.4em] uppercase text-[10px] bg-cerulean/5 px-4 py-2 border border-cerulean/20 italic skew-x-[-10deg]">{book.series}</span>
+            <span class="text-cerulean font-black tracking-[0.4em] uppercase text-[10px] bg-cerulean/5 px-4 py-2 border border-cerulean/20 italic transform -skew-x-12">{book.series}</span>
             <div class="h-px flex-1 bg-gradient-to-r from-cerulean/40 to-transparent"></div>
           </div>
-          <h1 class="text-5xl md:text-7xl font-black leading-none tracking-tighter text-white mb-6 uppercase italic skew-x-[-10deg] glow-text">
-            {book.title}
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-none tracking-tighter text-white mb-6 uppercase italic glow-text">
+            <span class="inline-block transform -skew-x-12">{book.title}</span>
           </h1>
           <div class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-white/30">
-            <span>Genre: {book.genre}</span>
+            <span class="transform -skew-x-12">Genre: {book.genre}</span>
             <div class="w-1.5 h-1.5 rounded-full bg-cerulean animate-ping"></div>
           </div>
         </header>
 
         <div class="hud-panel p-8 md:p-12 mb-12 flex-1 border-white/5 relative overflow-hidden">
-          <div class="hud-corner-accent hud-corner-tl opacity-20"></div>
-          <div class="hud-corner-accent hud-corner-br opacity-20"></div>
-          
           <h2 class="text-[10px] font-black text-white/40 uppercase tracking-[0.5em] mb-8 flex items-center gap-4">
             <span class="w-8 h-px bg-white/10"></span>
             Intelligence Dossier // Synopsis
           </h2>
-          <p class="text-xl md:text-2xl leading-relaxed text-text/90 font-medium italic mb-12 text-left relative z-10">
+          <p class="text-lg md:text-xl lg:text-2xl leading-relaxed text-text/90 font-medium italic mb-12 text-left relative z-10">
             "{book.description}"
           </p>
           
@@ -88,27 +79,27 @@
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Link Status</span>
               <div class="flex items-center gap-3">
                 <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
-                <span class="text-cerulean font-black uppercase tracking-widest text-xs">Verified // Encrypted</span>
+                <span class="text-cerulean font-black uppercase tracking-widest text-xs transform -skew-x-12">Verified // Encrypted</span>
               </div>
             </div>
             <div class="space-y-2">
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Uplink Protocol</span>
-              <span class="text-white font-black uppercase tracking-widest text-xs italic">Direct Neural Stream</span>
+              <span class="text-white font-black uppercase tracking-widest text-xs italic transform -skew-x-12">Direct Neural Stream</span>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-6">
-          <div class="flex flex-col bg-white/5 px-10 py-5 border border-white/10 relative">
+          <div class="flex flex-col bg-white/5 px-10 py-5 border border-white/10 relative overflow-hidden">
             <div class="absolute top-0 left-0 w-1 h-full bg-cerulean/50"></div>
             <span class="text-[9px] text-white/30 uppercase tracking-[0.4em] mb-1 font-black">Exchange Rate</span>
             <span class="text-4xl font-black tracking-tighter text-white">${book.price}</span>
           </div>
           <button 
-            class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic skew-x-[-10deg]"
+            class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic"
             on:click={() => window.LemonSqueezy?.Url.Open(book.lemonSqueezyId)}
           >
-            Initiate Acquisition
+            <span class="inline-block transform -skew-x-12">Initiate Acquisition</span>
           </button>
         </div>
         
