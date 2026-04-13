@@ -7,69 +7,150 @@
   const wrongGodsBooks = books.filter(b => b.series === 'The Wrong Gods');
 
   const series = [
-    { name: 'The Anisian Convergence', books: convergenceBooks, color: 'cerulean' },
-    { name: 'The Misadventures of Darren Whitestone', books: whitestoneBooks, color: 'crimson' },
-    { name: 'The Wrong Gods', books: wrongGodsBooks, color: 'white' }
+    {
+      name: 'The Anisian Convergence',
+      books: convergenceBooks,
+      clearance: 'Aether Corridor',
+      brief: 'Galactic war files, celestial fallout, and front-line archive packets from a collapsing star corridor.'
+    },
+    {
+      name: 'The Misadventures of Darren Whitestone',
+      books: whitestoneBooks,
+      clearance: 'Civil Distortion',
+      brief: 'Urban anomaly reports filtered through sarcastic field notes, magical leakage, and escalating civilian chaos.'
+    },
+    {
+      name: 'The Wrong Gods',
+      books: wrongGodsBooks,
+      clearance: 'Black Veil',
+      brief: 'Dark-fantasy intelligence files marked by corrupted divinity, ritual silence, and unstable mythic terrain.'
+    }
   ];
+
+  const totalAssets = books.length;
+
+  /** @param {string} name */
+  const getSectorCode = (name) =>
+    name
+      .split(' ')
+      /** @param {string} part */
+      .map((part) => part[0])
+      .join('')
+      .slice(0, 4)
+      .toUpperCase()
+      .padEnd(4, 'X');
+
+  /** @param {{ id: string; bookNum?: number }} book */
+  const getPacketCode = (book) =>
+    `${book.id.toUpperCase()}-${String(book.bookNum ?? 0).padStart(2, '0')}`;
+
+  /** @param {{ bookNum?: number; prequel?: boolean; standalone?: boolean }} book */
+  const getPacketStatus = (book) => {
+    if (book.prequel) return 'Prequel Asset';
+    if (book.standalone) return 'Standalone File';
+    return `Sequence ${String(book.bookNum).padStart(2, '0')}`;
+  };
 </script>
 
 <Nebula />
 
-<main class="container mx-auto px-4 py-16 relative z-10">
-  <header class="text-center mb-32 pt-12">
-    <div class="inline-block relative mb-12">
-      <div class="absolute -inset-4 bg-cerulean/20 blur-2xl rounded-full animate-pulse"></div>
-      <img src="/images/logo.webp" alt="Falstar Publishing" class="relative w-32 md:w-40 opacity-90 brightness-125" />
-    </div>
-    <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-[-0.08em] text-white uppercase italic glow-text">
-      <span class="inline-block transform skew-x-[-10deg]">Databank</span>
-    </h1>
-    <div class="flex items-center justify-center gap-4 text-[10px] md:text-xs font-black uppercase tracking-[0.6em] text-cerulean/60">
-      <div class="h-[1px] w-12 bg-cerulean/30"></div>
-      <span class="inline-block transform skew-x-[-10deg]">Neural Interface v4.0.1</span>
-      <div class="h-[1px] w-12 bg-cerulean/30"></div>
+<main class="archive-shell container mx-auto px-4 relative z-10" style="padding-block: clamp(5rem, 7vw, 7rem);">
+  <header class="archive-hero hud-panel" style="padding-top: clamp(1rem, 2.5vw, 2.5rem);">
+    <div class="archive-hero__grid">
+      <div>
+        <div class="inline-block relative mb-12">
+          <div class="absolute -inset-4 bg-cerulean/20 blur-2xl rounded-full animate-pulse"></div>
+          <img src="/images/logo.webp" alt="Falstar Publishing" class="relative w-32 md:w-40 opacity-90 brightness-125" />
+        </div>
+        <h1 class="type-display font-black mb-6 text-white uppercase italic glow-text">
+          <span class="inline-block">Databank</span>
+        </h1>
+        <div class="eyebrow flex items-center gap-4 text-cerulean/60" style="margin-bottom: clamp(1rem, 2vw, 1.6rem);">
+          <div class="h-[1px] w-12 bg-cerulean/30"></div>
+          <span class="inline-block">Neural Interface v5.0 // Archive Index</span>
+        </div>
+        <p class="archive-hero__lede type-body-lg">
+          A classified storefront archive for premium speculative fiction, surfaced as tactical packets inside a live neural bridge.
+          Browse by sector, inspect dossier-ready assets, and keep the cover art at the center of every acquisition path.
+        </p>
+      </div>
+
+      <div class="archive-hero__metrics">
+        <div class="archive-hero__metric">
+          <span class="eyebrow">Asset Count</span>
+          <strong>{totalAssets}</strong>
+        </div>
+        <div class="archive-hero__metric">
+          <span class="eyebrow">Series</span>
+          <strong>{series.length}</strong>
+        </div>
+        <div class="archive-hero__metric">
+          <span class="eyebrow">Delivery</span>
+          <strong>Direct Stream</strong>
+        </div>
+        <div class="archive-hero__metric">
+          <span class="eyebrow">Status</span>
+          <strong>Archive Live</strong>
+        </div>
+      </div>
     </div>
   </header>
 
   {#each series as s}
-    <section id={s.name.toLowerCase().replace(/ /g, '-')} class="mb-48">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 px-4">
-        <div class="transform skew-x-[-5deg]">
-          <h2 class="text-4xl md:text-5xl font-black text-white leading-none uppercase mb-2 italic">{s.name}</h2>
-          <p class="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-cerulean/40">Sector // 0x{Math.random().toString(16).slice(2, 6).toUpperCase()}</p>
+    <section id={s.name.toLowerCase().replace(/ /g, '-')} class="archive-section">
+      <div class="archive-section__header px-4">
+        <div>
+          <h2 class="type-section font-black text-white uppercase mb-2 italic">{s.name}</h2>
+          <p class="eyebrow text-cerulean/40" style="margin-bottom: 0.8rem;">Sector // 0x{getSectorCode(s.name)}</p>
+          <p class="archive-section__deck">{s.brief}</p>
         </div>
-        <div class="h-[2px] flex-1 bg-white/5 relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-r from-cerulean/40 to-transparent w-1/2 animate-[shimmer_3s_infinite]"></div>
+
+        <div class="archive-section__meta">
+          <span class="dossier-pill dossier-pill--ghost">Files // {s.books.length}</span>
+          <span class="dossier-pill dossier-pill--ghost">Clearance // {s.clearance}</span>
+          <span class="dossier-pill dossier-pill--ghost">Cover-First Packets</span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+      <div class="archive-grid px-4">
         {#each s.books as book}
-          <a href="/book/{book.id}" class="hud-panel group block relative h-full transition-all duration-500 hover:scale-[1.02] hover:z-20 p-2">
-            <div class="relative aspect-[3/4.5] overflow-hidden bg-black/60 mb-4">
-              <img 
-                src={book.cover} 
-                alt={book.title} 
-                class="w-full h-full object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110 opacity-60 group-hover:opacity-100"
-                on:error={(e) => e.target.src = 'https://via.placeholder.com/400x600/030008/00e5ff?text=DATA+ENCRYPTED'}
-              />
-              <!-- Data Overlays -->
-              <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
-                <div class="text-[8px] font-mono text-cerulean/40 mb-1 flex justify-between uppercase">
-                  <span>ID: {book.id.toUpperCase()}</span>
-                  <span>STAT: VERIFIED</span>
+          <a href="/book/{book.id}" class="data-packet hud-panel group block relative h-full">
+            <div class="data-packet__frame">
+              <div class="data-packet__meta eyebrow">
+                <span>Packet // {getPacketCode(book)}</span>
+                <span>{getPacketStatus(book)}</span>
+              </div>
+
+              <div class="data-packet__cover-shell">
+                <div class="data-packet__cover">
+                  <img 
+                    src={book.cover} 
+                    alt={book.title} 
+                    class="transition-all duration-700"
+                    on:error={(event) => (/** @type {HTMLImageElement} */ (event.currentTarget)).src = 'https://via.placeholder.com/400x600/030008/00e5ff?text=DATA+ENCRYPTED'}
+                  />
+
+                  <div class="data-packet__cover-label">
+                    <span>ID // {book.id.toUpperCase()}</span>
+                    <span>Asset Verified</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="px-4 pb-6 flex flex-col flex-1">
-              <h3 class="text-xl font-black text-white/90 group-hover:text-cerulean transition-colors mb-4 leading-tight uppercase tracking-tight">
-                {book.title}
-              </h3>
-              
-              <div class="mt-auto flex items-center justify-between border-t border-white/10 pt-4">
-                <span class="text-2xl font-black tracking-tighter text-white/80 group-hover:text-white transition-colors">${book.price}</span>
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean opacity-60 group-hover:opacity-100 transition-opacity">Access Terminal →</span>
+              <div class="data-packet__body">
+                <div class="data-packet__kicker eyebrow text-cerulean/50">
+                  <span>{book.genre}</span>
+                  <span>{getPacketStatus(book)}</span>
+                </div>
+                <h3 class="data-packet__title type-card-title font-black text-white/90 uppercase">
+                  {book.title}
+                </h3>
+                <p class="data-packet__summary">{book.description}</p>
+
+                <div class="data-packet__footer">
+                  <span class="data-packet__price">${book.price}</span>
+                  <span class="data-packet__action">Open Dossier →</span>
+                </div>
               </div>
             </div>
           </a>
@@ -78,43 +159,18 @@
     </section>
   {/each}
 
-  <footer class="text-center opacity-20 text-[10px] mt-48 tracking-[0.5em] uppercase pb-16">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v4.0.1-dev</p>
+  <footer class="text-center opacity-20 text-[10px] tracking-[0.5em] uppercase" style="padding-bottom: clamp(2rem, 5vw, 4rem);">
+    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.0 archive</p>
   </footer>
 </main>
 
 <style>
   .container { width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto; }
-  .grid { display: grid; }
-  .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-  @media (min-width: 640px) { .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .gap-6 { gap: 1.5rem; }
   .flex { display: flex; }
-  .flex-col { flex-direction: column; }
   .items-center { align-items: center; }
-  .justify-center { justify-content: center; }
-  .justify-between { justify-content: space-between; }
-  .text-center { text-align: center; }
-  .font-bold { font-weight: 700; }
   .font-black { font-weight: 900; }
-  .mb-3 { margin-bottom: 0.75rem; }
-  .mb-4 { margin-bottom: 1rem; }
-  .mb-8 { margin-bottom: 2rem; }
   .mb-12 { margin-bottom: 3rem; }
-  .mb-24 { margin-bottom: 6rem; }
-  .mb-32 { margin-bottom: 8rem; }
-  .p-8 { padding: 2rem; }
-  .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
   .px-4 { padding-left: 1rem; padding-right: 1rem; }
   .relative { position: relative; }
   .z-10 { z-index: 10; }
-  .text-cerulean { color: var(--clr-cerulean); }
-  .bg-cerulean { background-color: var(--clr-cerulean); }
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
 </style>

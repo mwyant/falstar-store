@@ -1,10 +1,33 @@
 <script>
   import Nebula from '$lib/components/Nebula.svelte';
-  import { base } from '$app/paths';
 
   /** @type {import('./$types').PageData} */
   export let data;
   const { book } = data;
+
+  const archiveCode = `${book.id.toUpperCase()}-${String(book.bookNum ?? 0).padStart(2, '0')}-${book.genre
+    .replace(/[^A-Za-z]/g, '')
+    .slice(0, 3)
+    .toUpperCase()}`;
+
+  const classification = {
+    'Dystopian Sci-Fi': 'AETHER CLEARANCE',
+    'Comedic Urban Fantasy': 'CIVIL DISTORTION',
+    'Dark Fantasy': 'BLACK VEIL'
+  }[book.genre] ?? 'OPEN ARCHIVE';
+
+  const sequenceLabel = book.prequel
+    ? 'Prequel Transmission'
+    : book.standalone
+      ? 'Standalone Dossier'
+      : `Sequence ${String(book.bookNum).padStart(2, '0')}`;
+
+  const dossierLog = [
+    { label: 'Archive Code', value: archiveCode },
+    { label: 'Classification', value: classification },
+    { label: 'Stream Type', value: 'Direct Neural Delivery' },
+    { label: 'Asset State', value: book.price === '0.00' ? 'Open Access' : 'Premium Secure' }
+  ];
 </script>
 
 <svelte:head>
@@ -14,9 +37,9 @@
 
 <Nebula />
 
-<main class="container mx-auto px-4 py-16 relative z-10 min-h-screen flex flex-col justify-center">
+<main class="container mx-auto px-4 relative z-10 min-h-screen flex flex-col justify-center" style="padding-block: clamp(5rem, 7vw, 7rem);">
   <div class="max-w-6xl mx-auto w-full">
-    <div class="flex items-center gap-4 mb-16 px-4">
+    <div class="flex items-center gap-4 px-4" style="margin-bottom: clamp(2rem, 4vw, 4rem);">
       <a href="/" class="group flex items-center gap-3 text-cerulean/60 hover:text-cerulean transition-colors no-underline">
         <span class="text-[10px] font-black uppercase tracking-[0.4em]">← Return to Databank</span>
       </a>
@@ -24,16 +47,15 @@
       <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Accessing Dossier // {book.id.toUpperCase()}</span>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start text-left px-4">
-      <!-- Book Cover (Column 1-5) -->
-      <div class="lg:col-span-5 w-full max-w-sm mx-auto lg:max-w-none">
+    <div class="dossier-layout px-4">
+      <div class="dossier-cover-stack w-full max-w-sm mx-auto lg:max-w-none">
         <div class="hud-panel p-2 border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] relative group overflow-hidden">
           <div class="aspect-[2/3] overflow-hidden relative bg-black/40">
             <img 
               src={book.cover} 
               alt={book.title} 
               class="w-full h-full object-cover shadow-2xl transition-all duration-1000 group-hover:scale-110"
-              on:error={(e) => e.target.src = 'https://via.placeholder.com/600x900/030008/00e5ff?text=DATA+ENCRYPTED'}
+              on:error={(event) => (/** @type {HTMLImageElement} */ (event.currentTarget)).src = 'https://via.placeholder.com/600x900/030008/00e5ff?text=DATA+ENCRYPTED'}
             />
             
             {#if book.prequel}
@@ -47,34 +69,67 @@
           
           <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-48 h-1 bg-cerulean shadow-[0_0_20px_rgba(0,229,255,0.8)] animate-pulse"></div>
         </div>
+
+        <div class="hud-panel dossier-cover-meta">
+          <div class="dossier-cover-meta__row eyebrow">
+            <span>Visual Asset</span>
+            <strong>{sequenceLabel}</strong>
+          </div>
+          <div class="dossier-cover-meta__row eyebrow">
+            <span>Series</span>
+            <strong>{book.series}</strong>
+          </div>
+          <div class="dossier-cover-meta__row eyebrow">
+            <span>Genre Signal</span>
+            <strong>{book.genre}</strong>
+          </div>
+        </div>
       </div>
 
-      <!-- Book Info (Column 6-12) -->
-      <div class="lg:col-span-7 flex flex-col h-full pt-4">
-        <header class="mb-12 relative">
-          <div class="flex items-center gap-4 mb-6">
-            <span class="text-cerulean font-black tracking-[0.4em] uppercase text-[10px] bg-cerulean/5 px-4 py-2 border border-cerulean/20 italic transform -skew-x-12">{book.series}</span>
-            <div class="h-px flex-1 bg-gradient-to-r from-cerulean/40 to-transparent"></div>
+      <div class="dossier-body-stack flex flex-col h-full pt-4">
+        <header class="dossier-header hud-panel mb-12 relative">
+          <div class="dossier-header__top eyebrow">
+            <span>Archive // {archiveCode}</span>
+            <div class="dossier-header__line"></div>
+            <span>Classification // {classification}</span>
           </div>
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-none tracking-tighter text-white mb-6 uppercase italic glow-text">
-            <span class="inline-block transform -skew-x-12">{book.title}</span>
+
+          <div class="dossier-header__series">
+            <span class="dossier-pill">{book.series}</span>
+            <span class="dossier-pill dossier-pill--ghost">{book.genre}</span>
+            <span class="dossier-pill dossier-pill--ghost">{sequenceLabel}</span>
+          </div>
+
+          <h1 class="dossier-title font-black text-white uppercase italic glow-text">
+            {book.title}
           </h1>
-          <div class="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-white/30">
-            <span class="transform -skew-x-12">Genre: {book.genre}</span>
-            <div class="w-1.5 h-1.5 rounded-full bg-cerulean animate-ping"></div>
+
+          <div class="dossier-metrics eyebrow">
+            <div class="dossier-metric">
+              <span>Status</span>
+              <strong>Verified / Neural Ready</strong>
+            </div>
+            <div class="dossier-metric">
+              <span>Signal Path</span>
+              <strong>{book.genre}</strong>
+            </div>
+            <div class="dossier-metric">
+              <span>Terminal</span>
+              <strong>Falstar Secure Databank</strong>
+            </div>
           </div>
         </header>
 
-        <div class="hud-panel p-8 md:p-12 mb-12 flex-1 border-white/5 relative overflow-hidden">
+        <div class="hud-panel dossier-synopsis flex-1 border-white/5 relative overflow-hidden">
           <h2 class="text-[10px] font-black text-white/40 uppercase tracking-[0.5em] mb-8 flex items-center gap-4">
             <span class="w-8 h-px bg-white/10"></span>
             Intelligence Dossier // Synopsis
           </h2>
-          <p class="text-lg md:text-xl lg:text-2xl leading-relaxed text-text/90 font-medium italic mb-12 text-left relative z-10">
+          <p class="type-body-lg content-measure text-text/90 font-medium italic mb-12 text-left relative z-10">
             "{book.description}"
           </p>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 py-8 border-t border-white/10">
+          <div class="dossier-synopsis__grid">
             <div class="space-y-2">
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Link Status</span>
               <div class="flex items-center gap-3">
@@ -87,20 +142,36 @@
               <span class="text-white font-black uppercase tracking-widest text-xs italic transform -skew-x-12">Direct Neural Stream</span>
             </div>
           </div>
+
+          <div class="hud-panel dossier-log">
+            <h3 class="eyebrow text-cerulean/55">Transmission Log</h3>
+            <div class="dossier-log__grid">
+              {#each dossierLog as entry}
+                <div class="dossier-log__row eyebrow">
+                  <span>{entry.label}</span>
+                  <strong>{entry.value}</strong>
+                </div>
+              {/each}
+            </div>
+          </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-6">
-          <div class="flex flex-col bg-white/5 px-10 py-5 border border-white/10 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-1 h-full bg-cerulean/50"></div>
-            <span class="text-[9px] text-white/30 uppercase tracking-[0.4em] mb-1 font-black">Exchange Rate</span>
-            <span class="text-4xl font-black tracking-tighter text-white">${book.price}</span>
+        <div class="hud-panel dossier-cta-panel">
+          <div class="dossier-price-card">
+            <span class="eyebrow text-white/35">Exchange Rate</span>
+            <strong>${book.price}</strong>
+            <span class="eyebrow text-cerulean/55">{book.price === '0.00' ? 'Immediate Release' : 'Premium File Access'}</span>
           </div>
-          <button 
-            class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic"
-            on:click={() => window.LemonSqueezy?.Url.Open(book.lemonSqueezyId)}
-          >
-            <span class="inline-block transform -skew-x-12">Initiate Acquisition</span>
-          </button>
+
+          <div class="dossier-acquire">
+            <button 
+              class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic"
+              on:click={() => (/** @type {any} */ (window)).LemonSqueezy?.Url.Open(book.lemonSqueezyId)}
+            >
+              <span class="inline-block transform -skew-x-12">Initiate Acquisition</span>
+            </button>
+            <p class="eyebrow text-white/35">Secure handoff via monitored delivery channel. Cover-first presentation preserved through final checkout.</p>
+          </div>
         </div>
         
         <div class="mt-12 text-[9px] text-white/20 uppercase tracking-[0.5em] font-black flex items-center gap-4">
@@ -115,59 +186,22 @@
 
 <style>
   .container { width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto; }
-  .grid { display: grid; }
-  .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-  @media (min-width: 1024px) {
-    .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .lg\:col-span-5 { grid-column: span 5 / span 5; }
-    .lg\:col-span-7 { grid-column: span 7 / span 7; }
-  }
   .flex { display: flex; }
   .flex-col { flex-direction: column; }
-  @media (min-width: 640px) {
-    .sm\:flex-row { flex-direction: row; }
-    .sm\:items-center { align-items: center; }
-    .sm\:text-left { text-align: left; }
-  }
-  .items-start { align-items: flex-start; }
   .justify-center { justify-content: center; }
   .gap-3 { gap: 0.75rem; }
   .gap-4 { gap: 1rem; }
-  .gap-8 { gap: 2rem; }
-  .gap-16 { gap: 4rem; }
-  .p-3 { padding: 0.75rem; }
-  .p-10 { padding: 2.5rem; }
   .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-  .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-  .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
   .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-  .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-  .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-  .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
   .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
   .px-4 { padding-left: 1rem; padding-right: 1rem; }
-  .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
-  .px-8 { padding-left: 2rem; padding-right: 2rem; }
   .px-10 { padding-left: 2.5rem; padding-right: 2.5rem; }
-  .mb-1 { margin-bottom: 0.25rem; }
-  .mb-2 { margin-bottom: 0.5rem; }
-  .mb-4 { margin-bottom: 1rem; }
-  .mb-6 { margin-bottom: 1.5rem; }
   .mb-12 { margin-bottom: 3rem; }
-  .mb-16 { margin-bottom: 4rem; }
-  .mt-8 { margin-top: 2rem; }
   .text-xs { font-size: 0.75rem; }
-  .text-sm { font-size: 0.875rem; }
   .text-xl { font-size: 1.25rem; }
-  .text-2xl { font-size: 1.5rem; }
-  .text-4xl { font-size: 2.25rem; }
-  .text-5xl { font-size: 3rem; }
-  .md\:text-7xl { font-size: 4.5rem; }
   .font-medium { font-weight: 500; }
   .font-black { font-weight: 900; }
   .italic { font-style: italic; }
   .uppercase { text-transform: uppercase; }
   .tracking-widest { letter-spacing: 0.1em; }
-  .tracking-tighter { letter-spacing: -0.05em; }
-  .text-decoration-none { text-decoration: none; }
 </style>

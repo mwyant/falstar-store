@@ -4,35 +4,90 @@
   import { page } from '$app/stores';
   import GlitchOverlay from '$lib/components/GlitchOverlay.svelte';
 
+  /** @type {Record<string, string>} */
+  const routeLabels = {
+    '/': 'Archive Index',
+    '/book/[id]': 'Dossier Access',
+    '/success': 'Transmission Receipt'
+  };
+
+  /** @param {string | null | undefined} routeId */
+  const getRouteLabel = (routeId) => routeLabels[routeId ?? ''] ?? 'Falstar Databank';
+
+  /** @param {string | null | undefined} routeId */
+  const getRouteCode = (routeId) =>
+    (routeId ?? 'archive')
+      .replace(/[^a-zA-Z]/g, '')
+      .slice(0, 8)
+      .toUpperCase() || 'ARCHIVE';
+
   onMount(() => {
+    /** @type {any} */
+    const runtimeWindow = window;
+
     // Lemon Squeezy Setup
-    window.createLemonSqueezy = function() {
-      window.LemonSqueezySetup = window.LemonSqueezySetup || function() {
-        (window.LemonSqueezySetup.q = window.LemonSqueezySetup.q || []).push(arguments);
+    runtimeWindow.createLemonSqueezy = function () {
+      runtimeWindow.LemonSqueezySetup = runtimeWindow.LemonSqueezySetup || function () {
+        (runtimeWindow.LemonSqueezySetup.q = runtimeWindow.LemonSqueezySetup.q || []).push(arguments);
       };
     };
-    
+
     // Initialize Lemon Squeezy if script is already loaded
-    if (window.createLemonSqueezy) {
-      window.createLemonSqueezy();
+    if (runtimeWindow.createLemonSqueezy) {
+      runtimeWindow.createLemonSqueezy();
     }
   });
 
   $: currentYear = new Date().getFullYear();
+  $: routeLabel = getRouteLabel($page.route.id);
+  $: routeCode = getRouteCode($page.route.id);
 </script>
 
 <svelte:head>
-  <script src="https://app.lemonsqueezy.com/js/lemon.js" defer on:load={() => window.createLemonSqueezy && window.createLemonSqueezy()}></script>
+  <script src="https://app.lemonsqueezy.com/js/lemon.js" defer on:load={() => (/** @type {any} */ (window)).createLemonSqueezy?.()}></script>
 </svelte:head>
 
 <GlitchOverlay />
 
-<div class="flex flex-col min-h-screen">
-  <div class="flex-1">
+<div class="hud-shell" aria-hidden="true">
+  <div class="hud-noise"></div>
+  <div class="hud-scanlines"></div>
+
+  <div class="hud-rail hud-rail--top">
+    <div class="hud-rail__group">
+      <span class="hud-rail__label">Neural Bridge v5.0</span>
+      <span class="hud-rail__status hud-rail__status--optional">Channel // <strong>{routeLabel}</strong></span>
+    </div>
+    <div class="hud-rail__group">
+      <span class="hud-rail__status">Integrity // <strong>Stable</strong></span>
+      <span class="hud-rail__status hud-rail__status--optional">Route // <strong>{routeCode}</strong></span>
+    </div>
+  </div>
+
+  <div class="hud-frame-corner hud-frame-corner--tl"></div>
+  <div class="hud-frame-corner hud-frame-corner--tr"></div>
+  <div class="hud-frame-corner hud-frame-corner--bl"></div>
+  <div class="hud-frame-corner hud-frame-corner--br"></div>
+  <div class="hud-reticle"></div>
+
+  <div class="hud-rail hud-rail--bottom">
+    <div class="hud-rail__group">
+      <span class="hud-rail__label">Falstar Publishing</span>
+      <span class="hud-rail__status hud-rail__status--optional">Telemetry // <strong>Live Archive</strong></span>
+    </div>
+    <div class="hud-rail__group">
+      <span class="hud-rail__status">Latency // <strong>24ms</strong></span>
+      <span class="hud-rail__status hud-rail__status--optional">Viewport // <strong>Adaptive Clamp</strong></span>
+    </div>
+  </div>
+</div>
+
+<div class="app-shell flex flex-col min-h-screen">
+  <div class="app-shell__content flex-1">
     <slot />
   </div>
 
-  <footer class="relative z-20 border-t border-white/5 bg-black/40 backdrop-blur-xl py-24">
+  <footer class="relative z-20 border-t border-white/5 bg-black/40 py-24">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
         <!-- Brand -->
@@ -82,11 +137,11 @@
 
       <div class="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <p class="text-[9px] uppercase tracking-[0.4em] font-bold text-white/20">
-          &copy; {currentYear} // Falstar Publishing // Secure Transmission Terminal
+          &copy; {currentYear} // Falstar Publishing // Neural Bridge Shell Active
         </p>
         <div class="flex gap-8">
           <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">Latency: 24ms</span>
-          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable // v4.0.1</span>
+          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable // v5.0 shell</span>
         </div>
       </div>
     </div>
