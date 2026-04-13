@@ -53,5 +53,93 @@
     "price": "0.00",
     "lemonSqueezyId": "",
     "bookFunnelId": ""
+  },
+  {
+    "id": "spellbound",
+    "title": "Spellbound and Confused",
+    "series": "The Misadventures of Darren Whitestone",
+    "bookNum": 1,
+    "description": "A masterclass in the 'reluctant protagonist' trope, filtering cosmic weirdness through the lens of mundane annoyance.",
+    "cover": "/images/covers/spellbound.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "misfits",
+    "title": "Magic and Misfits",
+    "series": "The Misadventures of Darren Whitestone",
+    "bookNum": 2,
+    "description": "Successfully expands the world and Darren's role in it. The introduction of the Misfit Study Group is a strong addition.",
+    "cover": "/images/covers/misfits.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "paws",
+    "title": "Paws and Effect",
+    "series": "The Misadventures of Darren Whitestone",
+    "bookNum": 3,
+    "description": "A crucial turning point for Darren as he transitions from trainee to bored officer. Focuses on thefts of 'worthless' human junk.",
+    "cover": "/images/covers/paws.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "static",
+    "title": "Static and Spells",
+    "series": "The Misadventures of Darren Whitestone",
+    "bookNum": 4,
+    "description": "The 'Disaster Movie' plot and Darren's elevation to a 'Strategic Asset' and 'Sink'.",
+    "cover": "/images/covers/static.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "whitestone",
+    "title": "The Whitestone Treaty",
+    "series": "The Misadventures of Darren Whitestone",
+    "bookNum": 5,
+    "description": "The finale risks becoming too epic and losing its heart. Grounds the entire cosmic resolution in the most personal relationship of the series.",
+    "cover": "/images/covers/whitestone.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "soundless",
+    "title": "Soundless",
+    "series": "The Wrong Gods",
+    "bookNum": 1,
+    "description": "In a world where sound is a death sentence, one man discovers the power to break the silence.",
+    "cover": "/images/covers/soundless.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "madgod",
+    "title": "Chronicles of a Mad God",
+    "series": "The Wrong Gods",
+    "bookNum": 2,
+    "description": "The boundary between divinity and insanity blurs as the mad god's influence spreads.",
+    "cover": "/images/covers/madgod.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "lavender",
+    "title": "Lavender Footsteps",
+    "series": "The Wrong Gods",
+    "bookNum": 3,
+    "description": "Echoes of a forgotten world haunt those who walk among the lavender fields.",
+    "cover": "/images/covers/lavender.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
   }
 ]
