@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/Cinzel-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --clr-bg: #030008;
+  --clr-text: #e2e8f0;
+  --clr-cerulean: #00e5ff;
+  --clr-crimson: #ff003c;
+  --clr-glass: rgba(13, 22, 43, 0.7);
+  --clr-glass-border: rgba(0, 229, 255, 0.2);
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Montserrat', sans-serif;
+  --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
+  --space-md: clamp(1rem, 0.8rem + 1vw, 2rem);
+  --space-lg: clamp(2rem, 1.5rem + 2.5vw, 5rem);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.glass-panel {
+  background: var(--clr-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.nebula-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(circle at top right, #0a1128 0%, #030008 70%);
+}

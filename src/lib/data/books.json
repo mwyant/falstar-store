@@ -1,0 +1,57 @@
+[
+  {
+    "id": "fh",
+    "title": "Fallen Hunter",
+    "series": "The Anisian Convergence",
+    "bookNum": 1,
+    "description": "After losing everything she holds dear in a heartbeat, can this galactic protector keep from becoming one of the monsters she hates?",
+    "cover": "/images/covers/fh.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "fi",
+    "title": "The Futility of Intent",
+    "series": "The Anisian Convergence",
+    "bookNum": 2,
+    "description": "Lieutenant Dee Terganon will wipe out the last bastions of demons on Laconia even if it kills her.",
+    "cover": "/images/covers/fi.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "ita",
+    "title": "Into the Aether",
+    "series": "The Anisian Convergence",
+    "bookNum": 3,
+    "description": "The final epic battle for the galaxy has begun. Only a small team stands between Earth and Anum's demon hordes.",
+    "cover": "/images/covers/ita.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "fotw",
+    "title": "Focus on the Wind",
+    "series": "The Anisian Convergence",
+    "standalone": true,
+    "description": "A deeper dive into the worlds of the Anisian Convergence, exploring the boundaries of human and celestial reach.",
+    "cover": "/images/covers/fotw.webp",
+    "price": "4.99",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  },
+  {
+    "id": "lastbid",
+    "title": "Last Bid for a Dying Earth",
+    "series": "The Anisian Convergence",
+    "prequel": true,
+    "description": "The story that started it all. Discover the origins of the rifts and the brave souls who stood against the darkness.",
+    "cover": "/images/covers/lastbid.webp",
+    "price": "0.00",
+    "lemonSqueezyId": "",
+    "bookFunnelId": ""
+  }
+]

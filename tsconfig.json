@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "module": "ESNext",
+    "svelteConfig": "./svelte.config.js",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "$lib": ["src/lib"],
+      "$lib/*": ["src/lib/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "svelte.config.js", "vite.config.ts"]
+}
