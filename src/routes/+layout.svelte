@@ -55,7 +55,7 @@
 
   <div class="hud-rail hud-rail--top">
     <div class="hud-rail__group">
-      <span class="hud-rail__label">Neural Bridge v5.0</span>
+      <span class="hud-rail__label">Neural Bridge v5.1</span>
       <span class="hud-rail__status hud-rail__status--optional">Channel // <strong>{routeLabel}</strong></span>
     </div>
     <div class="hud-rail__group">
@@ -77,7 +77,7 @@
     </div>
     <div class="hud-rail__group">
       <span class="hud-rail__status">Latency // <strong>24ms</strong></span>
-      <span class="hud-rail__status hud-rail__status--optional">Viewport // <strong>Adaptive Clamp</strong></span>
+      <span class="hud-rail__status hud-rail__status--optional">Viewport // <strong>Adaptive Clamp v5.1</strong></span>
     </div>
   </div>
 </div>
@@ -113,7 +113,7 @@
           <p class="text-xs text-text/50 leading-relaxed">
             All digital assets are delivered via <span class="text-white font-bold">BookFunnel</span>. After acquisition, check your neural inbox for access codes.
           </p>
-          <a href="https://bookfunnel.com/help" class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean/60 hover:text-cerulean transition-colors mt-2">Support Terminal →</a>
+          <a href="https://bookfunnel.com/help" class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean/60 hover:text-cerulean transition-colors mt-2">Support Terminal -></a>
         </div>
 
         <!-- Newsletter -->
@@ -137,11 +137,11 @@
 
       <div class="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <p class="text-[9px] uppercase tracking-[0.4em] font-bold text-white/20">
-          &copy; {currentYear} // Falstar Publishing // Neural Bridge Shell Active
+          &copy; {currentYear} // Falstar Publishing // Neural Bridge Shell v5.1
         </p>
         <div class="flex gap-8">
           <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">Latency: 24ms</span>
-          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable // v5.0 shell</span>
+          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable // v5.1 shell</span>
         </div>
       </div>
     </div>

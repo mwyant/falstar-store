@@ -1,39 +1,45 @@
 <script>
+  import { onMount } from 'svelte';
   import Nebula from '$lib/components/Nebula.svelte';
   import books from '$lib/data/books.json';
 
-  const convergenceBooks = books.filter(b => b.series === 'The Anisian Convergence');
-  const whitestoneBooks = books.filter(b => b.series === 'The Misadventures of Darren Whitestone');
-  const wrongGodsBooks = books.filter(b => b.series === 'The Wrong Gods');
+  const convergenceBooks = books.filter((b) => b.series === 'The Anisian Convergence');
+  const whitestoneBooks = books.filter((b) => b.series === 'The Misadventures of Darren Whitestone');
+  const otherBooks = books.filter((b) => b.series === 'The Wrong Gods');
 
   const series = [
     {
+      key: 'convergence',
       name: 'The Anisian Convergence',
       books: convergenceBooks,
       clearance: 'Aether Corridor',
-      brief: 'Galactic war files, celestial fallout, and front-line archive packets from a collapsing star corridor.'
+      brief: 'Far-future military space opera dossiers, starfront briefings, and hardline tactical data from the outer corridor.'
     },
     {
+      key: 'whitestone',
       name: 'The Misadventures of Darren Whitestone',
       books: whitestoneBooks,
       clearance: 'Civil Distortion',
-      brief: 'Urban anomaly reports filtered through sarcastic field notes, magical leakage, and escalating civilian chaos.'
+      brief: 'Urban fantasy incident reports with magical sheen, rogue chaos, and a few too many improbable miracles.'
     },
     {
-      name: 'The Wrong Gods',
-      books: wrongGodsBooks,
-      clearance: 'Black Veil',
-      brief: 'Dark-fantasy intelligence files marked by corrupted divinity, ritual silence, and unstable mythic terrain.'
+      key: 'other',
+      name: 'Other Books by Mike Wyant Jr.',
+      books: otherBooks,
+      clearance: 'Unfinished Side Project',
+      brief: 'Cooler, unfinished side-project files kept separate while the main storefront stays locked to the active catalog.'
     }
   ];
 
   const totalAssets = books.length;
+  let activeSection = 'convergence';
+  let hoveredSection = '';
+  let darrenCursor = { x: 68, y: 32 };
 
   /** @param {string} name */
   const getSectorCode = (name) =>
     name
       .split(' ')
-      /** @param {string} part */
       .map((part) => part[0])
       .join('')
       .slice(0, 4)
@@ -41,8 +47,7 @@
       .padEnd(4, 'X');
 
   /** @param {{ id: string; bookNum?: number }} book */
-  const getPacketCode = (book) =>
-    `${book.id.toUpperCase()}-${String(book.bookNum ?? 0).padStart(2, '0')}`;
+  const getPacketCode = (book) => `${book.id.toUpperCase()}-${String(book.bookNum ?? 0).padStart(2, '0')}`;
 
   /** @param {{ bookNum?: number; prequel?: boolean; standalone?: boolean }} book */
   const getPacketStatus = (book) => {
@@ -50,6 +55,46 @@
     if (book.standalone) return 'Standalone File';
     return `Sequence ${String(book.bookNum).padStart(2, '0')}`;
   };
+
+  const morphSection = () => hoveredSection || activeSection;
+
+  /** @param {string} key */
+  const setHover = (key) => {
+    hoveredSection = key;
+  };
+
+  /** @param {string} key */
+  const clearHover = (key) => {
+    if (hoveredSection === key) hoveredSection = '';
+  };
+
+  /** @param {PointerEvent} event */
+  const updateDarrenCursor = (event) => {
+    const rect = /** @type {HTMLElement} */ (event.currentTarget).getBoundingClientRect();
+    darrenCursor = {
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100
+    };
+  };
+
+  onMount(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target instanceof HTMLElement && visible.target.dataset.section) {
+          activeSection = visible.target.dataset.section;
+        }
+      },
+      { threshold: [0.25, 0.45, 0.65] }
+    );
+
+    document.querySelectorAll('[data-archive-section]').forEach((node) => observer.observe(node));
+
+    return () => observer.disconnect();
+  });
 </script>
 
 <Nebula />
@@ -67,7 +112,7 @@
         </h1>
         <div class="eyebrow flex items-center gap-4 text-cerulean/60" style="margin-bottom: clamp(1rem, 2vw, 1.6rem);">
           <div class="h-[1px] w-12 bg-cerulean/30"></div>
-          <span class="inline-block">Neural Interface v5.0 // Archive Index</span>
+          <span class="inline-block">Neural Interface v5.1 // Archive Index</span>
         </div>
         <p class="archive-hero__lede type-body-lg">
           A classified storefront archive for premium speculative fiction, surfaced as tactical packets inside a live neural bridge.
@@ -97,11 +142,27 @@
   </header>
 
   {#each series as s}
-    <section id={s.name.toLowerCase().replace(/ /g, '-')} class="archive-section">
+    <section
+      id={s.key}
+      data-archive-section
+      data-section={s.key}
+      role="group"
+      aria-label={s.name}
+      class={`archive-section archive-section--${s.key}`}
+      class:section-active={morphSection() === s.key}
+      style={s.key === 'whitestone' ? `--cat-x:${darrenCursor.x}%; --cat-y:${darrenCursor.y}%;` : ''}
+      on:mouseenter={() => setHover(s.key)}
+      on:mouseleave={() => clearHover(s.key)}
+      on:focusin={() => setHover(s.key)}
+      on:focusout={() => clearHover(s.key)}
+      on:pointermove={s.key === 'whitestone' ? updateDarrenCursor : undefined}
+    >
       <div class="archive-section__header px-4">
         <div>
+          <p class="eyebrow text-cerulean/40" style="margin-bottom: 0.8rem;">
+            Sector // 0x{getSectorCode(s.name)}
+          </p>
           <h2 class="type-section font-black text-white uppercase mb-2 italic">{s.name}</h2>
-          <p class="eyebrow text-cerulean/40" style="margin-bottom: 0.8rem;">Sector // 0x{getSectorCode(s.name)}</p>
           <p class="archive-section__deck">{s.brief}</p>
         </div>
 
@@ -110,6 +171,10 @@
           <span class="dossier-pill dossier-pill--ghost">Clearance // {s.clearance}</span>
           <span class="dossier-pill dossier-pill--ghost">Cover-First Packets</span>
         </div>
+
+        {#if s.key === 'whitestone'}
+          <span class="whitestone-eye" aria-hidden="true"></span>
+        {/if}
       </div>
 
       <div class="archive-grid px-4">
@@ -123,9 +188,9 @@
 
               <div class="data-packet__cover-shell">
                 <div class="data-packet__cover">
-                  <img 
-                    src={book.cover} 
-                    alt={book.title} 
+                  <img
+                    src={book.cover}
+                    alt={book.title}
                     class="transition-all duration-700"
                     on:error={(event) => (/** @type {HTMLImageElement} */ (event.currentTarget)).src = 'https://via.placeholder.com/400x600/030008/00e5ff?text=DATA+ENCRYPTED'}
                   />
@@ -149,7 +214,7 @@
 
                 <div class="data-packet__footer">
                   <span class="data-packet__price">${book.price}</span>
-                  <span class="data-packet__action">Open Dossier →</span>
+                  <span class="data-packet__action">Open Dossier -></span>
                 </div>
               </div>
             </div>
@@ -160,7 +225,7 @@
   {/each}
 
   <footer class="text-center opacity-20 text-[10px] tracking-[0.5em] uppercase" style="padding-bottom: clamp(2rem, 5vw, 4rem);">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.0 archive</p>
+    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.1 archive</p>
   </footer>
 </main>
 
