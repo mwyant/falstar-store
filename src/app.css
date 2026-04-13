@@ -442,6 +442,59 @@ h4 {
   opacity: 1;
 }
 
+.archive-section--convergence {
+  overflow: visible;
+}
+
+.archive-section--convergence .convergence-sprite {
+  position: absolute;
+  inset: -8% -4% auto;
+  height: min(48rem, 56vw);
+  pointer-events: none;
+  z-index: 0;
+  opacity: calc(0.08 + (var(--conv-power, 0) * 0.78));
+  transform:
+    translate3d(calc((var(--conv-x, 50%) - 50%) * 0.08), calc((var(--conv-y, 42%) - 42%) * 0.08), 0)
+    scale(calc(0.92 + (var(--conv-power, 0) * 0.18)));
+  filter: blur(1.2rem) saturate(1.35);
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(circle at 50% 72%, rgba(255, 0, 60, 0.34), transparent 18%),
+    radial-gradient(circle at var(--conv-x, 50%) var(--conv-y, 42%), rgba(0, 229, 255, 0.52), transparent 14%),
+    radial-gradient(circle at 50% 56%, rgba(255, 0, 60, 0.18), transparent 36%),
+    radial-gradient(circle at 50% 52%, rgba(0, 229, 255, 0.22), transparent 42%),
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 60, 0.08), transparent 60%);
+  animation: convergence-plasma 9s ease-in-out infinite;
+}
+
+.archive-section--convergence .convergence-sprite::before,
+.archive-section--convergence .convergence-sprite::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.archive-section--convergence .convergence-sprite::before {
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255, 0, 60, 0.82), transparent 12%),
+    radial-gradient(circle at 50% 68%, rgba(255, 0, 60, 0.52), transparent 22%),
+    conic-gradient(from 90deg at 50% 50%, rgba(0, 229, 255, 0.1), rgba(255, 0, 60, 0.4), rgba(0, 229, 255, 0.1));
+  clip-path: polygon(50% 0, 60% 15%, 100% 25%, 67% 44%, 78% 100%, 50% 76%, 22% 100%, 33% 44%, 0 25%, 40% 15%);
+  filter: blur(0.15rem);
+}
+
+.archive-section--convergence .convergence-sprite::after {
+  inset: 18% 10%;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 50%;
+  box-shadow:
+    0 0 2rem rgba(0, 229, 255, 0.12),
+    inset 0 0 1.4rem rgba(255, 0, 60, 0.14);
+  opacity: 0.9;
+}
+
 .archive-section__header {
   position: relative;
   display: grid;
@@ -582,12 +635,11 @@ h4 {
 
 .archive-section--convergence .data-packet__cover-shell {
   background:
-    radial-gradient(circle at 50% 50%, rgba(255, 0, 60, 0.1), transparent 52%),
-    linear-gradient(180deg, rgba(4, 10, 19, 0.94), rgba(10, 18, 31, 0.72));
+    linear-gradient(180deg, rgba(4, 10, 19, 0.82), rgba(10, 18, 31, 0.66));
   border-color: rgba(0, 229, 255, 0.2);
   box-shadow:
-    inset 0 0 0 1px rgba(0, 229, 255, 0.08),
-    inset 0 0 2.4rem rgba(0, 229, 255, 0.06);
+    inset 0 0 0 1px rgba(0, 229, 255, 0.06),
+    inset 0 0 1.4rem rgba(0, 229, 255, 0.04);
 }
 
 .archive-section--convergence .data-packet__cover-shell::before {
@@ -596,24 +648,24 @@ h4 {
   inset: -1px;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 0, 60, 0.9), transparent 24%),
-    radial-gradient(circle at 82% 18%, rgba(0, 229, 255, 0.78), transparent 18%),
-    radial-gradient(circle at 50% 100%, rgba(0, 229, 255, 0.48), transparent 34%),
-    linear-gradient(135deg, transparent 0 24%, rgba(0, 229, 255, 0.14) 38%, transparent 56% 100%);
+    radial-gradient(circle at 20% 24%, rgba(255, 0, 60, 0.5), transparent 22%),
+    radial-gradient(circle at 80% 18%, rgba(0, 229, 255, 0.45), transparent 18%),
+    radial-gradient(circle at 50% 96%, rgba(0, 229, 255, 0.38), transparent 24%),
+    radial-gradient(circle at 50% 52%, rgba(255, 0, 60, 0.08), transparent 62%);
   mix-blend-mode: screen;
-  opacity: 0.86;
-  filter: blur(0.2rem) saturate(1.25);
+  opacity: 0.62;
+  filter: blur(0.3rem) saturate(1.15);
 }
 
 .archive-section--convergence .data-packet__cover::after {
   background:
-    radial-gradient(circle at 50% 92%, rgba(255, 0, 60, 0.35), transparent 24%),
-    radial-gradient(circle at 50% 100%, rgba(0, 229, 255, 0.32), transparent 20%),
-    linear-gradient(180deg, transparent 38%, rgba(255, 0, 60, 0.36) 72%, rgba(2, 5, 11, 0.9) 100%),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.24), transparent 18%, transparent 82%, rgba(0, 229, 255, 0.24));
+    radial-gradient(circle at 50% 94%, rgba(255, 0, 60, 0.24), transparent 20%),
+    radial-gradient(circle at 50% 100%, rgba(0, 229, 255, 0.18), transparent 18%),
+    linear-gradient(180deg, transparent 44%, rgba(255, 0, 60, 0.24) 78%, rgba(2, 5, 11, 0.88) 100%),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.16), transparent 18%, transparent 82%, rgba(0, 229, 255, 0.16));
   box-shadow:
-    inset 0 0 1.2rem rgba(255, 0, 60, 0.15),
-    inset 0 0 1.8rem rgba(0, 229, 255, 0.08);
+    inset 0 0 1rem rgba(255, 0, 60, 0.1),
+    inset 0 0 1.2rem rgba(0, 229, 255, 0.06);
 }
 
 .archive-section--convergence .data-packet__meta,
@@ -657,15 +709,15 @@ h4 {
 .archive-section--convergence.section-active .data-packet__cover,
 .archive-section--convergence:hover .data-packet__cover {
   box-shadow:
-    inset 0 0 0 1px rgba(0, 229, 255, 0.22),
-    0 0 1.2rem rgba(0, 229, 255, 0.08);
+    inset 0 0 0 1px rgba(0, 229, 255, 0.18),
+    0 0 0.9rem rgba(0, 229, 255, 0.06);
 }
 
 .archive-section--convergence.section-active .data-packet img,
 .archive-section--convergence:hover .data-packet img {
-  opacity: 0.96;
-  filter: saturate(1.18) contrast(1.12) drop-shadow(0 0 0.8rem rgba(0, 229, 255, 0.18));
-  transform: scale(1.03);
+  opacity: 0.94;
+  filter: saturate(1.12) contrast(1.08) drop-shadow(0 0 0.55rem rgba(0, 229, 255, 0.12));
+  transform: scale(1.01);
 }
 
 .archive-section--convergence.section-active .data-packet__cover-label,
@@ -674,6 +726,21 @@ h4 {
   text-shadow:
     0 0 0.6rem rgba(0, 229, 255, 0.24),
     0 0 0.9rem rgba(255, 0, 60, 0.16);
+}
+
+@keyframes convergence-plasma {
+  0%,
+  100% {
+    transform:
+      translate3d(calc((var(--conv-x, 50%) - 50%) * 0.08), calc((var(--conv-y, 42%) - 42%) * 0.08), 0)
+      scale(calc(0.92 + (var(--conv-power, 0) * 0.18)));
+  }
+
+  50% {
+    transform:
+      translate3d(calc((var(--conv-x, 50%) - 50%) * 0.1), calc((var(--conv-y, 42%) - 42%) * 0.1 - 0.5rem), 0)
+      scale(calc(0.94 + (var(--conv-power, 0) * 0.2)));
+  }
 }
 
 .archive-section--whitestone .archive-section__header::before {

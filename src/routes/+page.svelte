@@ -34,6 +34,9 @@
   const totalAssets = books.length;
   let activeSection = 'convergence';
   let hoveredSection = '';
+  let convergenceCursor = { x: 50, y: 42 };
+  let convergencePower = 0;
+  let convergenceRaf = 0;
   let darrenCursor = { x: 68, y: 32 };
 
   /** @param {string} name */
@@ -61,11 +64,38 @@
   /** @param {string} key */
   const setHover = (key) => {
     hoveredSection = key;
+    if (key === 'convergence') {
+      if (convergenceRaf) cancelAnimationFrame(convergenceRaf);
+
+      const start = performance.now();
+      const tick = /** @param {number} now */ (now) => {
+        const elapsed = now - start;
+        convergencePower = Math.min(1, elapsed / 1800);
+        convergenceRaf = requestAnimationFrame(tick);
+      };
+
+      convergenceRaf = requestAnimationFrame(tick);
+    }
   };
 
   /** @param {string} key */
   const clearHover = (key) => {
     if (hoveredSection === key) hoveredSection = '';
+
+    if (key === 'convergence') {
+      if (convergenceRaf) cancelAnimationFrame(convergenceRaf);
+      convergenceRaf = 0;
+      convergencePower = 0;
+    }
+  };
+
+  /** @param {PointerEvent} event */
+  const updateConvergenceCursor = (event) => {
+    const rect = /** @type {HTMLElement} */ (event.currentTarget).getBoundingClientRect();
+    convergenceCursor = {
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100
+    };
   };
 
   /** @param {PointerEvent} event */
@@ -112,7 +142,7 @@
         </h1>
         <div class="eyebrow flex items-center gap-4 text-cerulean/60" style="margin-bottom: clamp(1rem, 2vw, 1.6rem);">
           <div class="h-[1px] w-12 bg-cerulean/30"></div>
-          <span class="inline-block">Neural Interface v5.1.2 // Archive Index</span>
+            <span class="inline-block">Neural Interface v5.1.3 // Archive Index</span>
         </div>
         <p class="archive-hero__lede type-body-lg">
           A classified storefront archive for premium speculative fiction, surfaced as tactical packets inside a live neural bridge.
@@ -150,13 +180,22 @@
       aria-label={s.name}
       class={`archive-section archive-section--${s.key}`}
       class:section-active={morphSection() === s.key}
-      style={s.key === 'whitestone' ? `--cat-x:${darrenCursor.x}%; --cat-y:${darrenCursor.y}%;` : ''}
+      style={
+        s.key === 'whitestone'
+          ? `--cat-x:${darrenCursor.x}%; --cat-y:${darrenCursor.y}%;`
+          : s.key === 'convergence'
+            ? `--conv-x:${convergenceCursor.x}%; --conv-y:${convergenceCursor.y}%; --conv-power:${convergencePower};`
+            : ''
+      }
       on:mouseenter={() => setHover(s.key)}
       on:mouseleave={() => clearHover(s.key)}
       on:focusin={() => setHover(s.key)}
       on:focusout={() => clearHover(s.key)}
-      on:pointermove={s.key === 'whitestone' ? updateDarrenCursor : undefined}
+      on:pointermove={s.key === 'whitestone' ? updateDarrenCursor : s.key === 'convergence' ? updateConvergenceCursor : undefined}
     >
+      {#if s.key === 'convergence'}
+        <div class="convergence-sprite" aria-hidden="true"></div>
+      {/if}
       <div class="archive-section__header px-4">
         <div>
           <p class="eyebrow text-cerulean/40" style="margin-bottom: 0.8rem;">
@@ -225,7 +264,7 @@
   {/each}
 
   <footer class="text-center opacity-20 text-[10px] tracking-[0.5em] uppercase" style="padding-bottom: clamp(2rem, 5vw, 4rem);">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.1.2 archive</p>
+    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v5.1.3 archive</p>
   </footer>
 </main>
 
