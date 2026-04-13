@@ -22,7 +22,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {#each convergenceBooks as book}
-        <div class="glass-panel group overflow-hidden flex flex-col h-full">
+        <a href="/book/{book.id}" class="glass-panel group overflow-hidden flex flex-col h-full transition-all hover:border-cerulean/50 hover:shadow-[0_0_30px_rgba(0,229,255,0.1)]">
           <div class="aspect-[2/3] overflow-hidden relative">
             <img 
               src={book.cover} 
@@ -47,12 +47,12 @@
             
             <div class="mt-auto flex items-center justify-between gap-4 pt-4 border-t border-white/5">
               <span class="text-2xl font-bold tracking-tighter">${book.price}</span>
-              <button class="bg-cerulean text-black font-bold py-2 px-6 rounded-sm uppercase text-sm tracking-widest hover:bg-white transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+              <span class="bg-cerulean text-black font-bold py-2 px-6 rounded-sm uppercase text-sm tracking-widest group-hover:bg-white transition-all shadow-[0_0_15px_rgba(0,229,255,0.3)]">
                 Acquire
-              </button>
+              </span>
             </div>
           </div>
-        </div>
+        </a>
       {/each}
     </div>
   </section>
