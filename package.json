@@ -1,6 +1,6 @@
 {
   "name": "falstar-store",
-  "version": "0.1.0",
+  "version": "4.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite dev",

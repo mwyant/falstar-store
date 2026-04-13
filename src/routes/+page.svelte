@@ -85,7 +85,7 @@
   {/each}
 
   <footer class="text-center opacity-20 text-[10px] mt-48 tracking-[0.5em] uppercase pb-16">
-    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v0.2.0-dev</p>
+    <p>&copy; {new Date().getFullYear()} Falstar Publishing LLC // Neural interface stable // v4.0.1-dev</p>
   </footer>
 </main>
 

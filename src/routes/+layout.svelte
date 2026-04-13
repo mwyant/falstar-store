@@ -86,7 +86,7 @@
         </p>
         <div class="flex gap-8">
           <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">Latency: 24ms</span>
-          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable</span>
+          <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cerulean/30">System: Stable // v4.0.1</span>
         </div>
       </div>
     </div>
