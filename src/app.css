@@ -713,11 +713,22 @@ h4 {
     0 0 0.9rem rgba(0, 229, 255, 0.06);
 }
 
+.archive-section--convergence.section-active .data-packet__cover-shell::before,
+.archive-section--convergence:hover .data-packet__cover-shell::before {
+  opacity: 0.2;
+  filter: blur(0.2rem) saturate(1.05);
+}
+
+.archive-section--convergence.section-active .data-packet__cover::after,
+.archive-section--convergence:hover .data-packet__cover::after {
+  opacity: 0.12;
+}
+
 .archive-section--convergence.section-active .data-packet img,
 .archive-section--convergence:hover .data-packet img {
-  opacity: 0.94;
-  filter: saturate(1.12) contrast(1.08) drop-shadow(0 0 0.55rem rgba(0, 229, 255, 0.12));
-  transform: scale(1.01);
+  opacity: 1;
+  filter: none;
+  transform: scale(1);
 }
 
 .archive-section--convergence.section-active .data-packet__cover-label,
