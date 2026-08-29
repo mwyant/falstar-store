@@ -25,8 +25,8 @@
   const dossierLog = [
     { label: 'Archive Code', value: archiveCode },
     { label: 'Classification', value: classification },
-    { label: 'Delivery', value: book.fulfillment === 'manual-email' ? 'Manual Email Delivery' : 'Not Available' },
-    { label: 'Asset State', value: book.available ? (book.price === '0.00' ? 'Free Access' : 'Available') : 'Coming Soon' }
+    { label: 'Delivery', value: book.fulfillment === 'manual-email' ? 'Manual Email Delivery' : 'System Offline' },
+     { label: 'Asset State', value: book.available ? (book.price === '0.00' ? 'Free Access' : 'Available') : 'System Outage / Offline' }
   ];
 </script>
 
@@ -107,7 +107,7 @@
           <div class="dossier-metrics eyebrow">
             <div class="dossier-metric">
               <span>Status</span>
-              <strong>{book.available ? 'Available / Manual Delivery' : 'Coming Soon / Unavailable'}</strong>
+               <strong>{book.available ? 'Available / Manual Delivery' : 'System Outage / Offline'}</strong>
             </div>
             <div class="dossier-metric">
               <span>Signal Path</span>
@@ -134,7 +134,7 @@
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Link Status</span>
               <div class="flex items-center gap-3">
                 <div class="w-2 h-2 rounded-full {book.available ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]'}"></div>
-                <span class="text-cerulean font-black uppercase tracking-widest text-xs transform -skew-x-12">{book.available ? 'Available // Manual Delivery' : 'Coming Soon // Not Available'}</span>
+                 <span class="text-cerulean font-black uppercase tracking-widest text-xs transform -skew-x-12">{book.available ? 'Available // Manual Delivery' : 'System Outage // Offline'}</span>
               </div>
             </div>
             <div class="space-y-2">
@@ -159,8 +159,8 @@
         <div class="hud-panel dossier-cta-panel">
           <div class="dossier-price-card">
             <span class="eyebrow text-white/35">Exchange Rate</span>
-            <strong>{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'Unavailable'}</strong>
-            <span class="eyebrow text-cerulean/55">{book.available ? (book.purchaseUrl ? 'Purchase Link Ready' : 'Purchase Link Pending') : 'Not Available'}</span>
+             <strong>{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'SYSTEM OUTAGE'}</strong>
+             <span class="eyebrow text-cerulean/55">{book.available ? (book.purchaseUrl ? 'Purchase Link Ready' : 'Purchase Link Pending') : 'Archive Offline // No Price'}</span>
           </div>
 
           <div class="dossier-acquire">
@@ -173,7 +173,7 @@
               </a>
             {:else}
               <span class="flex-1 bg-white/10 text-white/40 font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] text-center italic">
-                <span class="inline-block transform -skew-x-12">{book.available ? 'Link Pending' : 'Unavailable'}</span>
+                 <span class="inline-block transform -skew-x-12">{book.available ? 'Link Pending' : 'System Outage'}</span>
               </span>
             {/if}
             <p class="eyebrow text-white/35">Payment is verified manually. Falstar Publishing then delivers the ebook to the email confirmed during checkout.</p>

@@ -39,7 +39,7 @@
         <section>
           <h2 class="text-cerulean font-black uppercase tracking-widest text-sm mb-6 transform -skew-x-12">2. Event Catalog</h2>
           <p>
-            Only titles marked available are offered during the event. A free title is shown as FREE; all other prices are displayed per title.
+            Only titles marked available are offered during the event. A free title is shown as FREE; all other prices are displayed per title. Offline archives remain visible as system-outage records without pricing.
           </p>
 
           <div class="mt-8 space-y-6">
@@ -47,11 +47,11 @@
               <div class="hud-panel p-4 border-white/5 bg-white/[0.02]">
                 <h3 class="text-[10px] font-black text-white/40 uppercase tracking-[0.4em] mb-4">{s}</h3>
                 <div class="space-y-2">
-                  {#each books.filter(b => b.series === s && b.available) as b}
+                  {#each books.filter(b => b.series === s) as b}
                     <div class="flex justify-between items-center text-xs uppercase tracking-widest">
-                      <span class="text-white/60">{b.title}</span>
-                      <span class={b.price === '0.00' ? 'text-cerulean font-black' : 'text-white/40'}>
-                        {b.price === '0.00' ? 'FREE' : `$${b.price}`}
+                      <span class={b.available ? 'text-white/60' : 'text-white/30'}>{b.title}</span>
+                      <span class={b.available && b.price === '0.00' ? 'text-cerulean font-black' : b.available ? 'text-white/40' : 'text-amber-400/70'}>
+                        {b.available ? (b.price === '0.00' ? 'FREE' : `$${b.price}`) : 'SYSTEM OUTAGE // OFFLINE'}
                       </span>
                     </div>
                   {/each}

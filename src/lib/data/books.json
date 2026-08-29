@@ -72,7 +72,6 @@
     "bookNum": 1,
     "description": "A masterclass in the 'reluctant protagonist' trope, filtering cosmic weirdness through the lens of mundane annoyance.",
     "cover": "/images/covers/spellbound.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -85,7 +84,6 @@
     "bookNum": 2,
     "description": "Darren can't 'keep his head down' anymore. As the portal leaks begin to affect his friends and his home, the reluctant bank teller must step up and lead a group of magical misfits.",
     "cover": "/images/covers/misfits.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -98,7 +96,6 @@
     "bookNum": 3,
     "description": "Darren is now a trainee officer, but the manual is useless. Investigating thefts of 'worthless' human junk, he must choose between following rules and saving lives.",
     "cover": "/images/covers/paws.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -111,7 +108,6 @@
     "bookNum": 4,
     "description": "The stakes go global. Elevating from a trainee to a Strategic Asset, Darren discovers what it means to be a 'Sink' in a race against a reality-shattering disaster.",
     "cover": "/images/covers/static.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -124,7 +120,6 @@
     "bookNum": 5,
     "description": "The epic finale. To honor a heartbreaking sacrifice, Darren must accept his role as Arbiter and face a contest of wills that will rewrite the physics of the universe.",
     "cover": "/images/covers/whitestone.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -137,7 +132,6 @@
     "bookNum": 1,
     "description": "In a world where sound is a death sentence, one man discovers the power to break the silence.",
     "cover": "/images/covers/soundless.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -150,7 +144,6 @@
     "bookNum": 2,
     "description": "The boundary between divinity and insanity blurs as the mad god's influence spreads.",
     "cover": "/images/covers/madgod.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"
@@ -163,7 +156,6 @@
     "bookNum": 3,
     "description": "Echoes of a forgotten world haunt those who walk among the lavender fields.",
     "cover": "/images/covers/lavender.webp",
-    "price": "2.99",
     "available": false,
     "purchaseUrl": "",
     "fulfillment": "unavailable"

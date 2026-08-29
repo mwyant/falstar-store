@@ -236,7 +236,7 @@
 
                   <div class="data-packet__cover-label">
                     <span>ID // {book.id.toUpperCase()}</span>
-                    <span>{book.available ? 'Available' : 'Coming Soon'}</span>
+                    <span>{book.available ? 'Available' : 'System Outage'}</span>
                   </div>
                 </div>
               </div>
@@ -252,7 +252,7 @@
                 <p class="data-packet__summary">{book.description}</p>
 
                 <div class="data-packet__footer">
-                  <span class="data-packet__price">{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'Unavailable'}</span>
+                  <span class="data-packet__price">{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'System Outage'}</span>
                   <span class="data-packet__action">Open Dossier -></span>
                 </div>
               </div>
