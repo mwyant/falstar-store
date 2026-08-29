@@ -1,16 +1,5 @@
 <script>
   import Nebula from '$lib/components/Nebula.svelte';
-  import { onMount } from 'svelte';
-
-  let countdown = 10;
-  
-  onMount(() => {
-    const timer = setInterval(() => {
-      countdown--;
-      if (countdown <= 0) clearInterval(timer);
-    }, 1000);
-    return () => clearInterval(timer);
-  });
 </script>
 
 <svelte:head>
@@ -28,27 +17,27 @@
       </div>
 
       <h1 class="text-5xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase">
-        Acquisition Complete
+        Payment Received
       </h1>
 
       <div class="h-1 w-24 bg-cerulean mx-auto mb-12"></div>
 
       <div class="space-y-8 text-left max-w-xl mx-auto">
         <p class="text-xl md:text-2xl text-text/90 leading-relaxed font-medium italic text-center">
-          "Neural link verified. Digital assets have been dispatched to your primary uplink address."
+          "Thank you. Your payment will be manually verified before delivery."
         </p>
 
         <div class="bg-white/5 border border-white/10 p-8 space-y-4">
-          <h2 class="text-[10px] font-black uppercase tracking-[0.5em] text-cerulean mb-4">Delivery Protocol: BookFunnel</h2>
+          <h2 class="text-[10px] font-black uppercase tracking-[0.5em] text-cerulean mb-4">Delivery Protocol</h2>
           <p class="text-sm text-text/70 leading-relaxed">
-            1. Check your email for a transmission from <span class="text-white font-bold">BookFunnel</span>.<br>
-            2. Follow the secure link to access your library.<br>
-            3. Use the BookFunnel app or your preferred reading device to initialize the data stream.
+            1. Falstar Publishing reviews the completed payment in PayPal.<br>
+            2. We send the ebook to the purchaser email confirmed during checkout.<br>
+            3. If you need a different delivery email, contact support with your purchase details.
           </p>
         </div>
 
         <p class="text-[10px] uppercase tracking-[0.3em] text-white/30 text-center font-bold">
-          If transmission fails, contact the support terminal at help@bookfunnel.com
+          For delivery help, email mike@falstarpublishing.com
         </p>
       </div>
 

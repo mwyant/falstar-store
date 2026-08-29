@@ -25,8 +25,8 @@
   const dossierLog = [
     { label: 'Archive Code', value: archiveCode },
     { label: 'Classification', value: classification },
-    { label: 'Stream Type', value: 'Direct Neural Delivery' },
-    { label: 'Asset State', value: book.price === '0.00' ? 'Open Access' : 'Premium Secure' }
+    { label: 'Delivery', value: book.fulfillment === 'manual-email' ? 'Manual Email Delivery' : 'Not Available' },
+    { label: 'Asset State', value: book.available ? (book.price === '0.00' ? 'Free Access' : 'Available') : 'Coming Soon' }
   ];
 </script>
 
@@ -107,7 +107,7 @@
           <div class="dossier-metrics eyebrow">
             <div class="dossier-metric">
               <span>Status</span>
-              <strong>Verified / Neural Ready</strong>
+              <strong>{book.available ? 'Available / Manual Delivery' : 'Coming Soon / Unavailable'}</strong>
             </div>
             <div class="dossier-metric">
               <span>Signal Path</span>
@@ -133,13 +133,13 @@
             <div class="space-y-2">
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Link Status</span>
               <div class="flex items-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
-                <span class="text-cerulean font-black uppercase tracking-widest text-xs transform -skew-x-12">Verified // Encrypted</span>
+                <div class="w-2 h-2 rounded-full {book.available ? 'bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]' : 'bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]'}"></div>
+                <span class="text-cerulean font-black uppercase tracking-widest text-xs transform -skew-x-12">{book.available ? 'Available // Manual Delivery' : 'Coming Soon // Not Available'}</span>
               </div>
             </div>
             <div class="space-y-2">
               <span class="block text-white/20 uppercase tracking-[0.4em] text-[9px] font-black">Uplink Protocol</span>
-              <span class="text-white font-black uppercase tracking-widest text-xs italic transform -skew-x-12">Direct Neural Stream</span>
+              <span class="text-white font-black uppercase tracking-widest text-xs italic transform -skew-x-12">Manual Verification and Email Delivery</span>
             </div>
           </div>
 
@@ -159,18 +159,24 @@
         <div class="hud-panel dossier-cta-panel">
           <div class="dossier-price-card">
             <span class="eyebrow text-white/35">Exchange Rate</span>
-            <strong>${book.price}</strong>
-            <span class="eyebrow text-cerulean/55">{book.price === '0.00' ? 'Immediate Release' : 'Premium File Access'}</span>
+            <strong>{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'Unavailable'}</strong>
+            <span class="eyebrow text-cerulean/55">{book.available ? (book.purchaseUrl ? 'Purchase Link Ready' : 'Purchase Link Pending') : 'Not Available'}</span>
           </div>
 
           <div class="dossier-acquire">
-            <button 
-              class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic"
-              on:click={() => (/** @type {any} */ (window)).LemonSqueezy?.Url.Open(book.lemonSqueezyId)}
-            >
-              <span class="inline-block transform -skew-x-12">Initiate Acquisition</span>
-            </button>
-            <p class="eyebrow text-white/35">Secure handoff via monitored delivery channel. Cover-first presentation preserved through final checkout.</p>
+            {#if book.available && book.purchaseUrl}
+              <a
+                href={book.purchaseUrl}
+                class="flex-1 bg-cerulean text-black font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] hover:bg-white hover:shadow-[0_0_60px_rgba(0,229,255,0.6)] transition-all transform active:scale-[0.98] italic text-center no-underline"
+              >
+                <span class="inline-block transform -skew-x-12">Purchase Ebook</span>
+              </a>
+            {:else}
+              <span class="flex-1 bg-white/10 text-white/40 font-black py-6 px-10 rounded-sm uppercase text-xl tracking-[0.4em] text-center italic">
+                <span class="inline-block transform -skew-x-12">{book.available ? 'Link Pending' : 'Unavailable'}</span>
+              </span>
+            {/if}
+            <p class="eyebrow text-white/35">Payment is verified manually. Falstar Publishing then delivers the ebook to the email confirmed during checkout.</p>
           </div>
         </div>
         

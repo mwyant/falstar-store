@@ -1,12 +1,13 @@
 <script>
-  import { onMount } from 'svelte';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
   import { page } from '$app/stores';
 
   let glitching = false;
   let glitchType = 'default';
+  /** @type {ReturnType<typeof setTimeout> | undefined} */
   let timeout;
 
+  /** @type {Record<string, string>} */
   const genreColors = {
     'Dystopian Sci-Fi': '#00e5ff',
     'Comedic Urban Fantasy': '#ff003c',
