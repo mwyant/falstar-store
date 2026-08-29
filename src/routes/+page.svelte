@@ -5,7 +5,7 @@
 
   const convergenceBooks = books.filter((b) => b.series === 'The Anisian Convergence');
   const whitestoneBooks = books.filter((b) => b.series === 'The Misadventures of Darren Whitestone');
-  const otherBooks = books.filter((b) => b.series === 'The Wrong Gods');
+  const otherBooks = books.filter((b) => b.series === 'Other Books by Mike Wyant Jr.');
 
   const series = [
     {
@@ -236,7 +236,7 @@
 
                   <div class="data-packet__cover-label">
                     <span>ID // {book.id.toUpperCase()}</span>
-                    <span>Asset Verified</span>
+                    <span>{book.available ? 'Available' : 'System Outage'}</span>
                   </div>
                 </div>
               </div>
@@ -252,7 +252,7 @@
                 <p class="data-packet__summary">{book.description}</p>
 
                 <div class="data-packet__footer">
-                  <span class="data-packet__price">${book.price}</span>
+                  <span class="data-packet__price">{book.available ? (book.price === '0.00' ? 'FREE' : `$${book.price}`) : 'System Outage'}</span>
                   <span class="data-packet__action">Open Dossier -></span>
                 </div>
               </div>

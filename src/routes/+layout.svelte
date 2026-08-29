@@ -1,6 +1,5 @@
 <script>
   import '../app.css';
-  import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import GlitchOverlay from '$lib/components/GlitchOverlay.svelte';
 
@@ -8,7 +7,12 @@
   const routeLabels = {
     '/': 'Archive Index',
     '/book/[id]': 'Dossier Access',
-    '/success': 'Transmission Receipt'
+    '/success': 'Transmission Receipt',
+    '/event': 'Event Store',
+    '/pricing': 'Pricing Information',
+    '/terms': 'Legal Protocol // Terms',
+    '/refund': 'Legal Protocol // Refund',
+    '/privacy': 'Legal Protocol // Privacy'
   };
 
   /** @param {string | null | undefined} routeId */
@@ -21,31 +25,10 @@
       .slice(0, 8)
       .toUpperCase() || 'ARCHIVE';
 
-  onMount(() => {
-    /** @type {any} */
-    const runtimeWindow = window;
-
-    // Lemon Squeezy Setup
-    runtimeWindow.createLemonSqueezy = function () {
-      runtimeWindow.LemonSqueezySetup = runtimeWindow.LemonSqueezySetup || function () {
-        (runtimeWindow.LemonSqueezySetup.q = runtimeWindow.LemonSqueezySetup.q || []).push(arguments);
-      };
-    };
-
-    // Initialize Lemon Squeezy if script is already loaded
-    if (runtimeWindow.createLemonSqueezy) {
-      runtimeWindow.createLemonSqueezy();
-    }
-  });
-
   $: currentYear = new Date().getFullYear();
   $: routeLabel = getRouteLabel($page.route.id);
   $: routeCode = getRouteCode($page.route.id);
 </script>
-
-<svelte:head>
-  <script src="https://app.lemonsqueezy.com/js/lemon.js" defer on:load={() => (/** @type {any} */ (window)).createLemonSqueezy?.()}></script>
-</svelte:head>
 
 <GlitchOverlay />
 
@@ -102,18 +85,22 @@
         <!-- Links -->
         <div class="flex flex-col gap-4">
           <h3 class="text-[10px] font-black uppercase tracking-[0.5em] text-cerulean mb-4">Network Nodes</h3>
-          <a href="https://mikewyantjr.com" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors">Author Website</a>
-          <a href="https://medium.com/@mwyant" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors">Neural Log (Blog)</a>
-          <a href="/#the-anisian-convergence" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors">The Convergence</a>
+          <a href="https://mikewyantjr.com" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Author Website</a>
+          <a href="https://blog.mikewyantjr.com/" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Neural Log (Blog)</a>
+           <a href="/pricing" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Pricing Data</a>
+           <a href="/event" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Event Store</a>
+           <a href="/terms" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Terms of Service</a>
+           <a href="/refund" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Refund Policy</a>
+           <a href="/privacy" class="text-xs font-bold uppercase tracking-widest text-text/60 hover:text-cerulean transition-colors no-underline">Privacy Policy</a>
         </div>
 
         <!-- Delivery -->
         <div class="flex flex-col gap-4">
           <h3 class="text-[10px] font-black uppercase tracking-[0.5em] text-white/50 mb-4">Uplink Protocols</h3>
           <p class="text-xs text-text/50 leading-relaxed">
-            All digital assets are delivered via <span class="text-white font-bold">BookFunnel</span>. After acquisition, check your neural inbox for access codes.
+            After payment is manually verified, Falstar Publishing sends your ebook to the purchaser email confirmed during checkout.
           </p>
-          <a href="https://bookfunnel.com/help" class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean/60 hover:text-cerulean transition-colors mt-2">Support Terminal -></a>
+          <a href="mailto:mike@falstarpublishing.com" class="text-[10px] font-black uppercase tracking-[0.3em] text-cerulean/60 hover:text-cerulean transition-colors mt-2">Support Terminal -></a>
         </div>
 
         <!-- Newsletter -->
